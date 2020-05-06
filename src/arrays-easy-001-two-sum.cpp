@@ -1,4 +1,4 @@
-// @author: Oliver Ocean <code@oliver.work>
+// @author: Oliver Ocean <github@oliverocean.co>
 
 #include <iostream>
 #include <vector>
