@@ -1,3 +1,5 @@
+// @author: Oliver Ocean <code@oliver.work>
+
 #include <iostream>
 #include <vector>
 #include <unordered_map>
