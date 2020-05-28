@@ -2,7 +2,7 @@
 #include <vector>
 #include <unordered_set>
 
-// function prototypes
+// function prototype
 bool containsDuplicate(std::vector<int>&);
 
 
