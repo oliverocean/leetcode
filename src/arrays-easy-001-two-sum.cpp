@@ -24,8 +24,8 @@ std::vector<int> twoSumAltOne(std::vector<int>& nums, int target);
 std::vector<int> twoSumAltTwo(std::vector<int>& nums, int target);
 std::vector<int> twoSumAltThree(std::vector<int>& nums, int target);
 
-int main() {
-
+int main()
+{
     int target{95};
     std::vector<int> nums {2, 7, 11, 15, 42, 56, 77, 88, 33};
     std::vector<int> results{};
@@ -33,7 +33,8 @@ int main() {
     results = twoSum(nums, target);
 
     std::cout << "\n> input:   [ ";
-    for (const auto& i : nums) {
+    for (const auto& i : nums)
+    {
         std::cout << i << " ";
     }
     std::cout << " ]";
@@ -47,8 +48,8 @@ int main() {
 
 /* ---[ single pass hash method ]--- */
 /* runtime: 8ms, memory: 10.1Mb */
-std::vector<int> twoSum(std::vector<int>& nums, int target) {
-
+std::vector<int> twoSum(std::vector<int>& nums, int target)
+{
     std::unordered_map<int, int> map;
 
     for (int i{0}; i < nums.size(); ++i)
@@ -65,13 +66,17 @@ std::vector<int> twoSum(std::vector<int>& nums, int target) {
 
 /* ---[ alternative single pass approach ]--- */
 /* found this method online - interesting and possibly faster but I prefer mine above */
-std::vector<int> twoSumAltOne(std::vector<int>& nums, int target) {
+std::vector<int> twoSumAltOne(std::vector<int>& nums, int target)
+{
     std::unordered_map<int, int>::iterator theIterator;
     std::unordered_map<int, int> theMap;
-    for (int i = 0 ; i < nums.size() ; i++) {
+
+    for (int i = 0 ; i < nums.size() ; i++)
+    {
         theIterator = theMap.find(target - nums[i]);
-        if (theIterator != theMap.end() && theIterator->second != i) {
-            return {i, theIterator->second};
+        if (theIterator != theMap.end() && theIterator->second != i)
+        {
+            return { i, theIterator->second };
         }
         theMap.insert(std::pair<int,int>(nums[i],i));
     }
@@ -80,22 +85,28 @@ std::vector<int> twoSumAltOne(std::vector<int>& nums, int target) {
 
 /* ---[ two pass hash approach ]--- */
 /* runtime: 12ms, memory: 10.4Mb */
-std::vector<int> twoSumAltTwo(std::vector<int>& nums, int target) {
+std::vector<int> twoSumAltTwo(std::vector<int>& nums, int target)
+{
     std::vector<int> pair;
 
     std::unordered_map<int, int> map;
-    for (int i{0}; i < nums.size(); ++i) {
+    for (int i{0}; i < nums.size(); ++i)
+    {
         map.insert(std::make_pair(nums[i], i));
     }
 
+    // output for debug
     std::cout << "map contains: \n";
-    for (auto item: map) {
+    for (auto item: map)
+    {
         std::cout << item.first << ":\t" << item.second << "\n";
     }
 
-    for (int j{0}; j < nums.size(); ++j) {
+    for (int j{0}; j < nums.size(); ++j)
+    {
         int complement = target - nums[j];
-        if ((map.find(complement) != map.end()) && (map.at(complement) != j)) {
+        if ((map.find(complement) != map.end()) && (map.at(complement) != j))
+        {
             pair.push_back(j);
             pair.push_back(map.at(complement));
             return pair;
@@ -106,14 +117,18 @@ std::vector<int> twoSumAltTwo(std::vector<int>& nums, int target) {
 
 /* ---[ brute force approach ]--- */
 /* runtime: 152ms, memory: 9.3Mb */
-std::vector<int> twoSumAltThree(std::vector<int>& nums, int target) {
-
+std::vector<int> twoSumAltThree(std::vector<int>& nums, int target)
+{
     std::vector<int> pair{0, 0};
 
-    for (int x{0}; x < nums.size(); ++x) {
+    for (int x{0}; x < nums.size(); ++x)
+    {
         int candidate = target - nums[x];
-        for (int y{x+1}; y < nums.size(); ++y) {
-            if (nums[y] == candidate) {
+
+        for (int y{x+1}; y < nums.size(); ++y)
+        {
+            if (nums[y] == candidate)
+            {
                 pair[0] = x;
                 pair[1] = y;
             }
