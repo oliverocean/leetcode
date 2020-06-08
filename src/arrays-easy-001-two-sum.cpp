@@ -2,10 +2,10 @@
  * @author: Oliver Ocean <github@oliverocean.co>
  * @project: LeetCode
  * @title: Two Sum
- * @problem: 001
+ * @index: 001
  * @difficulty: easy
- * @topics: arrays, vectors, maps
- * @requirements: https://leetcode.com/problems/two-sum/
+ * @topic: arrays, vectors, maps
+ * @reqs: https://leetcode.com/problems/two-sum/
  * @brief:
  *     Given an array of integers, return indices of the two numbers such that they add up to a specific target.
  *     You may assume that each input would have exactly one solution, and you may not use the same element twice.
@@ -25,6 +25,7 @@ std::vector<int> twoSumAltOne(std::vector<int>& nums, int target);
 std::vector<int> twoSumAltTwo(std::vector<int>& nums, int target);
 std::vector<int> twoSumAltThree(std::vector<int>& nums, int target);
 
+/* ---[ driver for testing functions ]--- */
 int main()
 {
     int target{95};
@@ -47,7 +48,7 @@ int main()
     return 0;
 }
 
-/* ---[ single pass hash method ]--- */
+/* ---[ single pass hash approach ]--- */
 /* runtime: 8ms, memory: 10.1Mb */
 std::vector<int> twoSum(std::vector<int>& nums, int target)
 {
