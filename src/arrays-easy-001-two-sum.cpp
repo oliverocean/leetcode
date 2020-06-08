@@ -25,7 +25,7 @@ std::vector<int> twoSumAltOne(std::vector<int>& nums, int target);
 std::vector<int> twoSumAltTwo(std::vector<int>& nums, int target);
 std::vector<int> twoSumAltThree(std::vector<int>& nums, int target);
 
-/* ---[ driver for testing functions ]--- */
+/* ---[ function test driver ]--- */
 int main()
 {
     int target{95};
