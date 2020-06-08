@@ -2,8 +2,9 @@
  * @author: Oliver Ocean <github@oliverocean.co>
  * @project: LeetCode
  * @title: Two Sum
- * @topics: arrays, vectors, maps
+ * @problem: 001
  * @difficulty: easy
+ * @topics: arrays, vectors, maps
  * @requirements: https://leetcode.com/problems/two-sum/
  * @brief:
  *     Given an array of integers, return indices of the two numbers such that they add up to a specific target.
