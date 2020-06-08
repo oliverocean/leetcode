@@ -1,9 +1,10 @@
-/* * * * * * *
+/* *
  * @author: Oliver Ocean <github@oliverocean.co>
- * @title: Two Sum (LeetCode)
- * @link: https://leetcode.com/problems/two-sum/
- * @topic: arrays
+ * @project: LeetCode
+ * @title: Two Sum
+ * @topics: arrays, vectors, maps
  * @difficulty: easy
+ * @requirements: https://leetcode.com/problems/two-sum/
  * @brief:
  *     Given an array of integers, return indices of the two numbers such that they add up to a specific target.
  *     You may assume that each input would have exactly one solution, and you may not use the same element twice.
@@ -11,13 +12,13 @@
  *     Given nums = [2, 7, 11, 15], target = 9
  *     Because nums[0] + nums[1] = 2 + 7 = 9
  *     Return: [0, 1]
- * */
+ */
 
 #include <iostream>
 #include <vector>
 #include <unordered_map>
 
-// function prototypes
+/* ---[ function prototypes ]--- */
 std::vector<int> twoSum(std::vector<int>& nums, int target);
 std::vector<int> twoSumAltOne(std::vector<int>& nums, int target);
 std::vector<int> twoSumAltTwo(std::vector<int>& nums, int target);
@@ -45,7 +46,7 @@ int main() {
 }
 
 /* ---[ single pass hash method ]--- */
-/* ---[ runtime: 8ms, memory: 10.1Mb ]--- */
+/* runtime: 8ms, memory: 10.1Mb */
 std::vector<int> twoSum(std::vector<int>& nums, int target) {
 
     std::unordered_map<int, int> map;
@@ -59,11 +60,11 @@ std::vector<int> twoSum(std::vector<int>& nums, int target) {
         }
         map.insert(std::make_pair(nums[i], i));
     }
-    return {}; // <- return empty vector if no match is found
+    return {}; // return empty vector if no match is found
 }
 
-/* ---[ alternative single pass method ]--- */
-/* found this one online - interesting and possibly faster but I prefer mine above */
+/* ---[ alternative single pass approach ]--- */
+/* found this method online - interesting and possibly faster but I prefer mine above */
 std::vector<int> twoSumAltOne(std::vector<int>& nums, int target) {
     std::unordered_map<int, int>::iterator theIterator;
     std::unordered_map<int, int> theMap;
@@ -77,8 +78,8 @@ std::vector<int> twoSumAltOne(std::vector<int>& nums, int target) {
     return {};
 }
 
-/* ---[ two pass hash method ]--- */
-/* ---[ runtime: 12ms, memory: 10.4Mb ---] */
+/* ---[ two pass hash approach ]--- */
+/* runtime: 12ms, memory: 10.4Mb */
 std::vector<int> twoSumAltTwo(std::vector<int>& nums, int target) {
     std::vector<int> pair;
 
@@ -103,8 +104,8 @@ std::vector<int> twoSumAltTwo(std::vector<int>& nums, int target) {
     return pair;
 }
 
-/* ---[ brute force method ]--- */
-/* ---[ runtime: 152ms, memory: 9.3Mb --- */
+/* ---[ brute force approach ]--- */
+/* runtime: 152ms, memory: 9.3Mb */
 std::vector<int> twoSumAltThree(std::vector<int>& nums, int target) {
 
     std::vector<int> pair{0, 0};
