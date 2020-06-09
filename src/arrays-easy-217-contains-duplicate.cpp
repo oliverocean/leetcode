@@ -65,7 +65,7 @@ bool containsDuplicate(std::vector<int>& nums)
     {
         if (aSet.find(n) != aSet.end())
         {
-            return true; // duplicate found in set, return early
+            return true; // duplicate found, return early
         }
         else
         {
