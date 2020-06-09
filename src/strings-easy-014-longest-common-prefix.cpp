@@ -22,8 +22,6 @@
 
 #include <iostream>
 #include <vector>
-#include <unordered_map>
-//#include <tclDecls.h>
 
 /* ---[ function prototypes ]--- */
 std::string longestCommonPrefix(std::vector<std::string>&);
@@ -35,11 +33,11 @@ int main()
     std::vector<std::string> setB {"dog","cat","bird", "giraffe", "fish"};
     std::vector<std::string> setC;
 
-    std::cout << "\n-------\n";
-    std::cout << "Result A: " << longestCommonPrefix(setA);
+    std::cout << "\n--- result a ---\n";
+    std::cout << "> " << longestCommonPrefix(setA);
 
-    std::cout << "\n-------\n";
-    std::cout << "Result B: " << longestCommonPrefix(setB);
+    std::cout << "\n--- result b ---\n";
+    std::cout << "> " << longestCommonPrefix(setB);
 
     return 0;
 }
