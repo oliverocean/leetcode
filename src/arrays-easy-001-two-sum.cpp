@@ -49,14 +49,14 @@ int main()
 }
 
 /* ---[ single pass hash approach ]--- */
-/* runtime: 8ms, memory: 10.1Mb */
+/* runtime: 8ms, memory: 10.1mb */
 std::vector<int> twoSum(std::vector<int>& nums, int target)
 {
     std::unordered_map<int, int> map;
 
     for (int i{0}; i < nums.size(); ++i)
     {
-        int complement = target - nums[i]; // interestingly, this is faster than computing in find() and at()
+        int complement = target - nums[i]; // interestingly, faster than find() and at()
         if (map.find(complement) != map.end())
         {
             return {i, map.at(complement)};
@@ -67,7 +67,7 @@ std::vector<int> twoSum(std::vector<int>& nums, int target)
 }
 
 /* ---[ alternative single pass approach ]--- */
-/* found this method online - interesting and possibly faster but I prefer mine above */
+/* found this method online - interesting and possibly faster but I prefer mine (above) */
 std::vector<int> twoSumAltOne(std::vector<int>& nums, int target)
 {
     std::unordered_map<int, int>::iterator theIterator;
@@ -86,7 +86,7 @@ std::vector<int> twoSumAltOne(std::vector<int>& nums, int target)
 }
 
 /* ---[ two pass hash approach ]--- */
-/* runtime: 12ms, memory: 10.4Mb */
+/* runtime: 12ms, memory: 10.4mb */
 std::vector<int> twoSumAltTwo(std::vector<int>& nums, int target)
 {
     std::vector<int> pair;
@@ -118,7 +118,7 @@ std::vector<int> twoSumAltTwo(std::vector<int>& nums, int target)
 }
 
 /* ---[ brute force approach ]--- */
-/* runtime: 152ms, memory: 9.3Mb */
+/* runtime: 152ms, memory: 9.3mb */
 std::vector<int> twoSumAltThree(std::vector<int>& nums, int target)
 {
     std::vector<int> pair{0, 0};
