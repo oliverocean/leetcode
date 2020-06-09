@@ -43,7 +43,7 @@ int main()
 }
 
 /* ---[ second, improved approach ]--- */
-/* runtime: 4ms @ 97% + memory: 7mb @ 100% */
+/* runtime: 4ms @ 97%, memory: 7mb @ 100% */
 int maxSubArray(std::vector<int>& nums)
 {
     int previousMax = INT_MIN;
@@ -84,7 +84,7 @@ int maxSubArrayDebug(std::vector<int>& nums)
 }
 
 /* ---[ brute force, first attempt ]--- */
-/* runtime 744ms @ 5% (poor) + memory 7mb @ 100% (excellent) */
+/* runtime 744ms @ 5% (poor), memory 7mb @ 100% (excellent) */
 int maxSubArrayAlt(std::vector<int>& nums)
 {
     int result = nums[0];
