@@ -83,7 +83,6 @@ bool containsDuplicateAltOne(std::vector<int>& nums)
     return nums.end() != std::adjacent_find(nums.begin(), nums.end());
 }
 
-
 /* ---[ revised brute force ]--- */
 /* shorter version, initialize/eval set (vs vector) in return statement */
 bool containsDuplicateAltTwo(std::vector<int>& nums)
@@ -103,7 +102,6 @@ bool containsDuplicateAltThree(std::vector<int>& nums)
     {
         aSet.insert(n);
     }
-
     return nums.size() > aSet.size();
 }
 
