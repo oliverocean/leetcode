@@ -50,8 +50,8 @@ int main()
     return 0;
 }
 
-/* ---[ revised approach, simplifed naming, more readable ]--- */
-/* runtime: 4ms @ 98% + memory: 8.8mb @ 100% */
+/* ---[ revised approach, simplified naming, more readable ]--- */
+/* runtime: 4ms @ 98%, memory: 8.8mb @ 100% */
 int maxProfit(std::vector<int>& prices)
 {
     int buy = INT_MAX;
@@ -112,7 +112,7 @@ int maxProfitAltOne(std::vector<int>& prices)
 }
 
 /* ---[ brute force approach ]--- */
-/* runtime: 868ms @ 6.76% (very poor!) + memory: 9mb @ 100% (excellent) */
+/* runtime: 868ms @ 6.76% (very poor!), memory: 9mb @ 100% (excellent) */
 int maxProfitAltTwo(std::vector<int>& prices)
  {
     int result = 0;
