@@ -4,7 +4,7 @@
  * @title: Roman to Integer
  * @index: 013
  * @difficulty: easy
- * @topic: math, string
+ * @topic: math, string, maps
  * @reqs: https://leetcode.com/problems/roman-to-integer/
  * @brief:
  *     Given a roman numeral, convert it to an integer. Input is guaranteed
@@ -22,7 +22,7 @@
  *     Example 4:
  *         Input: "MCMXCIV"
  *         Output: 1994
- * @note: standard rules for roman numerals apply, see details at link above
+ * @note: standard rules for roman numerals apply, review requirements link
  */
 
 #include <iostream>
