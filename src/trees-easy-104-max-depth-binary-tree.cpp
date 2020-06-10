@@ -1,23 +1,30 @@
-/**
- * @file: 104-max-depth-binary-tree.cpp
- * @author: Oliver Ocean <code@oliver.work>
- * @brief: Given an binary tree, find its maximum depth
- * @note: A leaf is a node with no children
+/* *
+ * @author: Oliver Ocean <github@oliverocean.co>
+ * @project: LeetCode
+ * @title: Max Depth of Binary Tree
+ * @index: 104
+ * @difficulty: easy
+ * @topic: tree, depth-first search
+ * @reqs: https://leetcode.com/problems/maximum-depth-of-binary-tree/
+ * @brief:
+ *     Given a binary tree, find its maximum depth.
+ *     The maximum depth is the number of nodes along the longest path from
+ *     the root node down to the farthest leaf node.
  * @example:
- *  Given binary tree [3, 9, 20, null, null, 15, 7]
- *        3
- *       / \
- *      9  20
- *        /  \
- *       15   7
- *  Return  its depth = 3
- *
+ *     > Given binary tree [3, 9, 20, null, null, 15, 7]
+ *               3
+ *              / \
+ *             9  20
+ *               /  \
+ *              15   7
+ *     > Return  its depth = 3
+ * @note: a leaf is a node with no children
  */
 
 #include <iostream>
 #include <vector>
 
-// Given definition for a binary tree node:
+/* ---[ binary node (given definition) ]--- */
 struct BinaryNode
 {
     int data;
@@ -28,15 +35,16 @@ struct BinaryNode
     BinaryNode(int x, BinaryNode* left, BinaryNode* right) : data(x), left(left), right(right) {}
  };
 
-// functions for testing
+/* ---[ function prototypes ]--- */
 BinaryNode* insertItem(BinaryNode*, int);
 void preOrderDisplay(BinaryNode*);
 void inOrderDisplay(BinaryNode*);
 void postOrderDisplay(BinaryNode*);
-
-// function prototype (from requirements)
 int maxDepth(BinaryNode*);
+int maxDepthAltOne(BinaryNode*);
+int maxDepthAltTwo(BinaryNode*);
 
+/* ---[ function test driver ]--- */
 int main()
 {
     std::cout << "\n---[ input ]---\n";
@@ -64,19 +72,29 @@ int main()
     return 0;
 }
 
-// dfs approach
-// runtime 16ms @ 12%, memory 19.2mb @ 96%
+/* ---[ dfs approach using max() ]--- */
+/* runtime: 16ms @ 12%, memory: 19.2mb @ 96% */
 int maxDepth(BinaryNode* root)
 {
     if (!root) { return 0; }
     return std::max(maxDepth(root->left) + 1, maxDepth(root->right) + 1);
-
-    // // alternate notations
-    // return root ? 1 + std::max(maxDepth(root->left), maxDepth(root->right)) : 0;
-    // return root == nullptr ? 0 : std::max(maxDepth(root->left), maxDepth(root->right)) + 1;
 }
 
-// <-- [ functions for testing ]--> //
+/* came across this notation on LC; I don't think it works right but worth investigating */
+int maxDepthAltOne(BinaryNode* root)
+{
+    if (!root) { return 0; }
+    return root ? 1 + std::max(maxDepth(root->left), maxDepth(root->right)) : 0;
+}
+
+/* came across this notation on LC; I don't think it works right but worth investigating */
+int maxDepthAltTwo(BinaryNode* root)
+{
+    if (!root) { return 0; }
+    return root == nullptr ? 0 : std::max(maxDepth(root->left), maxDepth(root->right)) + 1;
+}
+
+/* ---[ helper function for testing ]--- */
 BinaryNode* insertItem(BinaryNode* aRoot, int item)
 {
    if (aRoot == nullptr)
@@ -94,6 +112,7 @@ BinaryNode* insertItem(BinaryNode* aRoot, int item)
    return aRoot;
 }
 
+/* ---[ helper function for testing ]--- */
 void preOrderDisplay(BinaryNode* aNode)
 {
     if (aNode != nullptr)
@@ -104,6 +123,7 @@ void preOrderDisplay(BinaryNode* aNode)
     }
 }
 
+/* ---[ helper function for testing ]--- */
 void inOrderDisplay(BinaryNode* aNode)
 {
     if (aNode != nullptr)
@@ -114,6 +134,7 @@ void inOrderDisplay(BinaryNode* aNode)
     }
 }
 
+/* ---[ helper function for testing ]--- */
 void postOrderDisplay(BinaryNode* aNode)
 {
     if (aNode != nullptr)
@@ -123,3 +144,5 @@ void postOrderDisplay(BinaryNode* aNode)
         std::cout << aNode->data << ", ";
     }
 }
+
+// EOF
