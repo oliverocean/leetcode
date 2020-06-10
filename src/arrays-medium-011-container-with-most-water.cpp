@@ -97,7 +97,7 @@ int maxAreaDebug(std::vector<int>& lines)
 
     while (lh < rh)
     {
-        //-------------------------------------//
+        /* ------------------------------------- */
         std::cout << "lh: " << lh << "\n";
         std::cout << "rh: " << rh << "\n";
         std::cout << "h * w = ?\n";
@@ -105,7 +105,7 @@ int maxAreaDebug(std::vector<int>& lines)
                   << (rh - lh) << " = "
                   << std::min(lines[lh], lines[rh]) * (rh - lh);
         std::cout << "\n-------------------\n";
-        //-------------------------------------//
+        /* ------------------------------------- */
 
         int aNewArea = std::min(lines[lh], lines[rh]) * (rh - lh);
         theMaxArea = std::max(theMaxArea, aNewArea);
