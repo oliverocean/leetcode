@@ -91,6 +91,7 @@ std::vector<int> productExceptSelf(std::vector<int>& nums)
 std::vector<int> productExceptSelfDebug(std::vector<int>& nums)
 {
     std::vector<int> result(nums.size());
+
     std::vector<int> lh(nums.size());
     lh[0] = 1;
 
@@ -133,12 +134,15 @@ std::vector<int> productExceptSelfAltOne(std::vector<int>& nums)
 {
     std::vector<int> result(nums.size());
     result[0] = 1;
-    for (int i = 1; i < nums.size(); ++i) {
+
+    for (int i = 1; i < nums.size(); ++i)
+    {
         result[i] = result[i - 1] * nums[i - 1];
     }
 
     int rh = 1;
-    for (int j = static_cast<int>(nums.size() - 1); j >= 0; --j) {
+    for (int j = static_cast<int>(nums.size() - 1); j >= 0; --j)
+    {
         result[j] = result[j] * rh;
         rh *= nums[j];
     }
