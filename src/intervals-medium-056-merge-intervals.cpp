@@ -39,15 +39,29 @@ int main()
     //std::vector<std::vector<int>> intervals {{1, 4}, {4, 5}, {3, 4}};
     //std::vector<std::vector<int>> intervals {{7, 8}, {9, 14}, {13, 18}, {20, 22}, {21, 26}, {28, 30}};
     //std::vector<std::vector<int>> intervals {{1, 2}, {3, 6}, {8, 12}, {15, 18}};
-    for (const auto& row : intervals) { std::cout << "[ ";
-    for (const auto& col : row) { std::cout << col << ", "; } std::cout << "] "; }
+    for (const auto& row : intervals)
+    {
+        std::cout << "[ ";
+        for (const auto& col : row)
+        {
+            std::cout << col << ", ";
+        }
+        std::cout << "] ";
+    }
 
     std::cout << "\n\n---[ debug ]---\n";
     std::vector<std::vector<int>> revisedIntervals = merge(intervals);
 
     std::cout << "\n\n---[ output ]---\n";
-    for (const auto& row : revisedIntervals) { std::cout << "[ ";
-    for (const auto& col : row) { std::cout << col << ", "; } std::cout << "] "; }
+    for (const auto& row : revisedIntervals)
+    {
+        std::cout << "[ ";
+        for (const auto& col : row)
+        {
+            std::cout << col << ", ";
+        }
+        std::cout << "] ";
+    }
     std::cout << "\n";
 
     return 0;
