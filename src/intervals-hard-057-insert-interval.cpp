@@ -24,10 +24,11 @@
 
 #include <iostream>
 #include <vector>
-#include <set>
 
 /* ---[ function prototypes ]--- */
 std::vector<std::vector<int>> insert(std::vector<std::vector<int>>&, std::vector<int>&);
+std::vector<std::vector<int>> insertDebug(std::vector<std::vector<int>>&, std::vector<int>&);
+std::vector<std::vector<int>> insertAltOne(std::vector<std::vector<int>>&, std::vector<int>&);
 
 /* ---[ function test driver ]--- */
 int main()
@@ -81,8 +82,6 @@ int main()
 
 /* ---[ final approach ]--- */
 /* runtime: 16ms @ 83%, memory: 12mb @ 100% */
-/* realizing reqs ask to modify the existing vector...
- * this solution returns a new vector instead.  :|  */
 std::vector<std::vector<int>> insert(std::vector<std::vector<int>>& intervals,
                                      std::vector<int>& newInterval)
 {
@@ -112,10 +111,11 @@ std::vector<std::vector<int>> insert(std::vector<std::vector<int>>& intervals,
     }
 
     return revisedIntervals;
+    // realizing reqs ask to modify the existing vector...
+    // this solution returns a new vector instead.  :|
 }
 
-
-/* ---[ final approach with debug output and notes ]--- */
+/* ---[ final approach with debug output ]--- */
 std::vector<std::vector<int>> insertDebug(std::vector<std::vector<int>>& intervals,
                                             std::vector<int>& newInterval)
 {
