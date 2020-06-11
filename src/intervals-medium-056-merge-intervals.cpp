@@ -21,7 +21,6 @@
 
 #include <iostream>
 #include <vector>
-#include <set>
 #include <algorithm>
 #include <climits>
 
@@ -83,7 +82,7 @@ std::vector<std::vector<int>> merge(std::vector<std::vector<int>>& intervals)
 
 /* ---[ initial approach ]--- */
 /* clears test cases (for single pass) but fails test cases that require
- * multiple splits per interval). Code is also more complex than needed. */
+ * multiple splits per interval. Code is also more complex than needed. */
 std::vector<std::vector<int>> mergeAltOne(std::vector<std::vector<int>>& intervals)
 {
     if (intervals.empty()) return std::vector<std::vector<int>>{{}};
