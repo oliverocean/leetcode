@@ -18,7 +18,9 @@
 #include <iostream>
 #include <vector>
 
-// Option A
+
+//----------------------------------------------------------------------------//
+//---[ option a ]---//
 std::vector<int> two_sum_a(std::vector<int>& nums, int target)
 {
     //TODO
@@ -27,12 +29,8 @@ std::vector<int> two_sum_a(std::vector<int>& nums, int target)
 }
 
 
-
-
-
-
 //----------------------------------------------------------------------------//
-//---[ function test driver ]---//
+//---[ driver ]---//
 int main()
 {
     int target{95};
