@@ -28,82 +28,18 @@ Example 3:
 class Solution:
 
     # --[ top ]-------------------------------------------------------------- #
-    # enumerate loop
+    # hash map, single pass
     def twoSum(self, nums, target):
         bucket = {}
 
         for index, value in enumerate(nums):
-            match = target - nums[index]
 
-            if match in bucket:
-                return [bucket[match], index]
-            else:
-                bucket[value] = index
+            if value in bucket:
+                return [bucket[value], index]
 
-        return []
-
-    # --[ top ]-------------------------------------------------------------- #
-    # with comments
-    def twoSum_with_comments(self, nums, target):
-
-        # stores key (index), value pairs found in 'nums' array
-        bucket = {}
-
-        # look through nums array
-        for index, value in enumerate(nums):
-
-            # the value of each nums index has a match which sums up to target
-            match = target - nums[index]
-
-            # if match has been seen previously, return the pair of indices:
-            # 'old' index is a key in bucket, paired with the value of match
-            # 'new' index is the nums index during this loop iteration
-            if match in bucket:
-                return [bucket[match], index]
-
-            # if no match, store this key (index) and value in bucket
-            else:
-                bucket[value] = index
-
-        # if none of the values in array meet reqs, return empty list
-        return []
-
-    # --[ alt ]-------------------------------------------------------------- #
-    # interesting solution found here:
-    # https://leetcode.com/problems/two-sum/discuss/737092
-    def twoSumC(self, nums, target):
-
-        # left starts at index 0
-        for left_index in range(len(nums)):
-            right_index = len(nums) - 1
-
-            while left_index < right_index:
-                a_sum = nums[left_index] + nums[right_index]
-
-                if a_sum > target:
-                    right_index -= 1
-                elif a_sum < target:
-                    left_index += 1
-                else:
-                    return [left_index, right_index]
-
-    # --[ alt ]-------------------------------------------------------------- #
-    def twoSumB(self, nums, target):
-
-        for index in range(len(nums)):
-            match = target - nums[index]
-
-            if match in nums and nums.index(match) != index:
-                return[index, nums.index(match)]
+            bucket[target - value] = index
 
         return []
-
-    # --[ brute force ]------------------------------------------------------ #
-    def twoSumA(self, nums, target):
-        for index, value in enumerate(nums):
-            for index_match, value_match in enumerate(nums):
-                if value + value_match == target and index != index_match:
-                    return [index, index_match]
 
 
 # --[ driver ]--------------------------------------------------------------- #
