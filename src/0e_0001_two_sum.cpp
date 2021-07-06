@@ -1,142 +1,94 @@
-/* *
- * @author: Oliver Ocean <github@oliverocean.co>
- * @project: LeetCode
- * @title: Two Sum
- * @index: 001
- * @difficulty: easy
- * @topic: arrays, vectors, maps
- * @reqs: https://leetcode.com/problems/two-sum/
- * @brief:
- *     Given an array of integers, return indices of the two numbers such that they add up to a specific target.
- *     You may assume that each input would have exactly one solution, and you may not use the same element twice.
- * @example:
- *     Given nums = [2, 7, 11, 15], target = 9
- *     Because nums[0] + nums[1] = 2 + 7 = 9
- *     Return: [0, 1]
- */
+// 0001
 
 #include <iostream>
 #include <vector>
 #include <unordered_map>
 
-/* ---[ function prototypes ]--- */
-std::vector<int> twoSum(std::vector<int>& nums, int target);
-std::vector<int> twoSumAltOne(std::vector<int>& nums, int target);
-std::vector<int> twoSumAltTwo(std::vector<int>& nums, int target);
-std::vector<int> twoSumAltThree(std::vector<int>& nums, int target);
+using namespace std;
 
-/* ---[ function test driver ]--- */
-int main()
-{
-    int target{95};
-    std::vector<int> nums {2, 7, 11, 15, 42, 56, 77, 88, 33};
-    std::vector<int> results{};
+//--[ single pass, hash ]--//
+vector<int> two_sum(vector<int>& nums, int target) {
 
-    results = twoSum(nums, target);
+    unordered_map<int, int> map;
 
-    std::cout << "\n> input:   [ ";
-    for (const auto& i : nums)
-    {
-        std::cout << i << " ";
+    for (int n = 0; n < nums.size(); n++) {
+
+        int match = target - nums[n];
+
+        if (map.find(match) != map.end()) {
+            return { n, map.at(match) };
+        }
+
+        map.insert(make_pair(nums[n], n));
     }
-    std::cout << " ]";
 
-    std::cout << "\n> target:  [ " << target << " ]";
-    std::cout << "\n> values:  [ " << nums[results[0]] << " + " << nums[results[1]] << " ]";
-    std::cout << "\n> indexes: [ " << results[0] << " + " << results[1] << " ]\n";
+    return {}; // no match
+}
+
+//--[ single pass, hash ]--//
+vector<int> two_sum_iter(vector<int>& nums, int target) {
+
+    unordered_map<int, int> map;
+    unordered_map<int, int>::iterator iter;
+
+    for (int n = 0 ; n < nums.size() ; n++) {
+
+        iter = map.find(target - nums[n]);
+
+        if (iter != map.end() && iter->second != n) {
+            return { n, iter->second };
+        }
+
+        map.insert(make_pair(nums[n], n));
+    }
+
+    return {}; // no match
+}
+
+//--[ two pass, hash ]--//
+vector<int> two_sum_b(vector<int>& nums, int target) {
+
+    unordered_map<int, int> map;
+    vector<int> pair;
+
+    for (int n = 0; n < nums.size(); n++) {
+        map.insert(make_pair(nums[n], n));
+    }
+
+    for (int p = 0; p < nums.size(); p++) {
+
+        int match = target - nums[p];
+
+        if ((map.find(match) != map.end()) && (map.at(match) != p)) {
+            pair.push_back(p);
+            pair.push_back(map.at(match));
+            return pair;
+        }
+    }
+
+    return pair;
+}
+
+//--[ function test driver ]--//
+int main() {
+
+    int target{95};
+    vector<int> nums {2, 7, 11, 15, 42, 56, 77, 88, 33};
+    vector<int> results{};
+
+    results = two_sum(nums, target);
+
+    cout << "> input:   [ ";
+    for (auto i : nums) {
+        cout << i << " ";
+    }
+    cout << " ]";
+
+    cout << "\n> target:  [ " << target << " ]";
+    cout << "\n> values:  [ " << nums[results[0]] << " + " << nums[results[1]] << " ]";
+    cout << "\n> indexes: [ " << results[0] << " + " << results[1] << " ]\n";
 
     return 0;
 }
 
-/* ---[ single pass hash approach ]--- */
-/* runtime: 8ms, memory: 10.1mb */
-std::vector<int> twoSum(std::vector<int>& nums, int target)
-{
-    std::unordered_map<int, int> map;
-
-    for (int i{0}; i < nums.size(); ++i)
-    {
-        int complement = target - nums[i]; // interestingly, faster than find() and at()
-        if (map.find(complement) != map.end())
-        {
-            return {i, map.at(complement)};
-        }
-        map.insert(std::make_pair(nums[i], i));
-    }
-    return {}; // return empty vector if no match is found
-}
-
-/* ---[ alternative single pass approach ]--- */
-/* found this method online - interesting and possibly faster but I prefer mine (above) */
-std::vector<int> twoSumAltOne(std::vector<int>& nums, int target)
-{
-    std::unordered_map<int, int>::iterator theIterator;
-    std::unordered_map<int, int> theMap;
-
-    for (int i = 0 ; i < nums.size() ; i++)
-    {
-        theIterator = theMap.find(target - nums[i]);
-        if (theIterator != theMap.end() && theIterator->second != i)
-        {
-            return { i, theIterator->second };
-        }
-        theMap.insert(std::pair<int,int>(nums[i],i));
-    }
-    return {};
-}
-
-/* ---[ two pass hash approach ]--- */
-/* runtime: 12ms, memory: 10.4mb */
-std::vector<int> twoSumAltTwo(std::vector<int>& nums, int target)
-{
-    std::vector<int> pair;
-
-    std::unordered_map<int, int> map;
-    for (int i{0}; i < nums.size(); ++i)
-    {
-        map.insert(std::make_pair(nums[i], i));
-    }
-
-    // output for debug
-    std::cout << "map contains: \n";
-    for (auto item: map)
-    {
-        std::cout << item.first << ":\t" << item.second << "\n";
-    }
-
-    for (int j{0}; j < nums.size(); ++j)
-    {
-        int complement = target - nums[j];
-        if ((map.find(complement) != map.end()) && (map.at(complement) != j))
-        {
-            pair.push_back(j);
-            pair.push_back(map.at(complement));
-            return pair;
-        }
-    }
-    return pair;
-}
-
-/* ---[ brute force approach ]--- */
-/* runtime: 152ms, memory: 9.3mb */
-std::vector<int> twoSumAltThree(std::vector<int>& nums, int target)
-{
-    std::vector<int> pair{0, 0};
-
-    for (int x{0}; x < nums.size(); ++x)
-    {
-        int candidate = target - nums[x];
-
-        for (int y{x+1}; y < nums.size(); ++y)
-        {
-            if (nums[y] == candidate)
-            {
-                pair[0] = x;
-                pair[1] = y;
-            }
-        }
-    }
-    return pair;
-}
-
-// EOF
+// eof
