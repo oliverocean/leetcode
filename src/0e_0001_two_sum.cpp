@@ -22,7 +22,7 @@ vector<int> two_sum(vector<int>& nums, int target) {
         map.insert(make_pair(nums[n], n));
     }
 
-    return {}; // no match
+    return {};
 }
 
 //--[ single pass, hash ]--//
@@ -31,7 +31,7 @@ vector<int> two_sum_iter(vector<int>& nums, int target) {
     unordered_map<int, int> map;
     unordered_map<int, int>::iterator iter;
 
-    for (int n = 0 ; n < nums.size() ; n++) {
+    for (int n = 0; n < nums.size() ; n++) {
 
         iter = map.find(target - nums[n]);
 
@@ -42,7 +42,7 @@ vector<int> two_sum_iter(vector<int>& nums, int target) {
         map.insert(make_pair(nums[n], n));
     }
 
-    return {}; // no match
+    return {};
 }
 
 //--[ two pass, hash ]--//
