@@ -1,113 +1,143 @@
-/* *
- * @author: Oliver Ocean <github@oliverocean.co>
- * @project: LeetCode
- * @title: Maximum Subarray
- * @index: 053
- * @difficulty: easy
- * @topic: arrays, vectors, divide and conquer, dynamic programming
- * @reqs: https://leetcode.com/problems/maximum-subarray/
- * @brief:
- *     Given an integer array 'nums', find the contiguous subarray (containing
- *     at least one number), which has the largest sum and return its sum.
- * @example:
- *     Input: [ -2, 1, -3, 4, -1, 2, 1, -5, 4 ]
- *     Output: [ 6 ]
- *     Explanation: [ 4, -1, 2, 1 ] has the largest sum = 6
- */
+// 0053
 
 #include <iostream>
 #include <vector>
 #include <climits>
 
-/* ---[ function prototypes ]--- */
-int maxSubArray(std::vector<int>& nums);
-int maxSubArrayDebug(std::vector<int>& nums);
-int maxSubArrayAlt(std::vector<int>& nums);
+using namespace std;
 
-/* ---[ function test driver ]--- */
-int main()
-{
-    std::cout << "\n---[ input ]---\n";
+int max_subarray(vector<int>& nums) {
 
-    std::cout << "> Original Vector:\n";
-    std::vector<int> nums {-2, 1, -3, 4, -1, 2, 1, -5, 4}; // should be 6
+    int the_max = INT_MIN;
+    int streak = 0;
+
+    for (auto n : nums) {
+        streak = max(n, n + streak);
+        the_max = max(the_max, streak);
+    }
+
+    return the_max;
+}
+
+//--[ test driver ]--//
+int main() {
+    cout << "\n---[ input ]---\n";
+
+    cout << "> Original Vector:\n";
+    vector<int> nums {-2, 1, -3, 4, -1, 2, 1, -5, 4}; // should be 6
     //std::vector<int> nums {1}; // should be 1
     //std::vector<int> nums {-2, 1}; // should be 1
-    std::cout << " [ "; for (const auto& n : nums) { std::cout << n << ", "; } std::cout << "]";
+    cout << " [ "; for (auto n : nums) { cout << n << ", "; } cout << "]";
 
-    std::cout << "\n\n---[ debug ]---\n";
-    int result = maxSubArray(nums);
+    int result = max_subarray(nums);
 
-    std::cout << "\n\n---[ output ]---\n";
-    std::cout << "> result:\n [ " << result << " ]\n";
+    cout << "\n\n---[ output ]---\n";
+    cout << "> result:\n [ " << result << " ]\n";
 }
 
-/* ---[ second, improved approach ]--- */
-/* runtime: 4ms @ 97%, memory: 7mb @ 100% */
-int maxSubArray(std::vector<int>& nums)
-{
-    int previousMax = INT_MIN;
-    int recentStreak = 0;
+/*
 
-    for (auto currentItem : nums)
-    {
-        recentStreak = std::max(currentItem, recentStreak + currentItem);
-        previousMax = std::max(recentStreak, previousMax);
-    }
-    return previousMax;
-}
+--[ round 0 ]--
+• n [ -2 ]
+• streak [ 0 ]
+• the_max [ -2147483648 ]
+> streak = max(n, n + streak)?
+<< [ -2 ] OR [ -2 ]
+streak [ -2 ]
+> the_max = max(the_max, streak)?
+<< [ -2147483648 ] OR [ -2 ]
+the_max [ -2 ]
 
-/* ---[ improved approach with debug output ]--- */
-int maxSubArrayDebug(std::vector<int>& nums)
-{
-    int previousMax = INT_MIN;
-    int recentStreak = 0;
+--[ round 1 ]--
+• n [ 1 ]
+• streak [ -2 ]
+• the_max [ -2 ]
+> streak = max(n, n + streak)?
+<< [ 1 ] OR [ -1 ]
+streak [ 1 ]
+> the_max = max(the_max, streak)?
+<< [ -2 ] OR [ 1 ]
+the_max [ 1 ]
 
-    for (auto currentItem : nums)
-    {
-        std::cout << "\n--->\n";
-        std::cout << "• currentItem [ " << currentItem << " ]\n";
-        std::cout << "• recentStreak [ " << recentStreak << " ]\n";
-        std::cout << "• previousMax [ " << previousMax << " ]\n";
-        std::cout << "-\n";
-        std::cout << "> recentStreak = max(currentItem, currentItem + recentStreak)?\n";
-        std::cout << "<< [ " << currentItem << " ] OR [ " << currentItem + recentStreak << " ] \n";
-        recentStreak = std::max(currentItem, recentStreak + currentItem);
-        std::cout << "recentStreak [ " << recentStreak << " ]\n";
-        std::cout << "-\n";
-        std::cout << "> previousMax = max(recentStreak, previousMax)?\n";
-        std::cout << "<< [ " << recentStreak << " ] OR [ " << previousMax << " ]\n";
-        previousMax = std::max(recentStreak, previousMax);
-        std::cout << "previousMax [ " << previousMax << " ]\n";
-    }
-    return previousMax;
-}
+--[ round 2 ]--
+• n [ -3 ]
+• streak [ 1 ]
+• the_max [ 1 ]
+> streak = max(n, n + streak)?
+<< [ -3 ] OR [ -2 ]
+streak [ -2 ]
+> the_max = max(the_max, streak)?
+<< [ 1 ] OR [ -2 ]
+the_max [ 1 ]
 
-/* ---[ brute force, first attempt ]--- */
-/* runtime 744ms @ 5% (poor), memory 7mb @ 100% (excellent) */
-int maxSubArrayAlt(std::vector<int>& nums)
-{
-    int result = nums[0];
+--[ round 3 ]--
+• n [ 4 ]
+• streak [ -2 ]
+• the_max [ 1 ]
+> streak = max(n, n + streak)?
+<< [ 4 ] OR [ 2 ]
+streak [ 4 ]
+> the_max = max(the_max, streak)?
+<< [ 1 ] OR [ 4 ]
+the_max [ 4 ]
 
-    for (int i = 1; i < nums.size(); ++i)
-    {
-        int max = nums[i];
-        int sum = nums[i];
+--[ round 4 ]--
+• n [ -1 ]
+• streak [ 4 ]
+• the_max [ 4 ]
+> streak = max(n, n + streak)?
+<< [ -1 ] OR [ 3 ]
+streak [ 3 ]
+> the_max = max(the_max, streak)?
+<< [ 4 ] OR [ 3 ]
+the_max [ 4 ]
 
-        for (int n = i + 1; n < nums.size(); ++n)
-        {
-            sum += nums[n];
-            if (sum > max)
-            {
-                max = sum;
-            }
-        }
-        if (max > result)
-        {
-            result = max;
-        }
-    }
-    return result;
-}
+--[ round 5 ]--
+• n [ 2 ]
+• streak [ 3 ]
+• the_max [ 4 ]
+> streak = max(n, n + streak)?
+<< [ 2 ] OR [ 5 ]
+streak [ 5 ]
+> the_max = max(the_max, streak)?
+<< [ 4 ] OR [ 5 ]
+the_max [ 5 ]
 
-// EOF
+--[ round 6 ]--
+• n [ 1 ]
+• streak [ 5 ]
+• the_max [ 5 ]
+> streak = max(n, n + streak)?
+<< [ 1 ] OR [ 6 ]
+streak [ 6 ]
+> the_max = max(the_max, streak)?
+<< [ 5 ] OR [ 6 ]
+the_max [ 6 ]
+
+--[ round 7 ]--
+• n [ -5 ]
+• streak [ 6 ]
+• the_max [ 6 ]
+> streak = max(n, n + streak)?
+<< [ -5 ] OR [ 1 ]
+streak [ 1 ]
+> the_max = max(the_max, streak)?
+<< [ 6 ] OR [ 1 ]
+the_max [ 6 ]
+
+--[ round 8 ]--
+• n [ 4 ]
+• streak [ 1 ]
+• the_max [ 6 ]
+> streak = max(n, n + streak)?
+<< [ 4 ] OR [ 5 ]
+streak [ 5 ]
+> the_max = max(the_max, streak)?
+<< [ 6 ] OR [ 5 ]
+the_max [ 6 ]
+
+---[ output ]---
+> result: [ 6 ]
+*/
+
+// eof
