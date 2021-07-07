@@ -9,17 +9,17 @@ using namespace std;
 //--[ single pass, hash ]--//
 vector<int> two_sum(vector<int>& nums, int target) {
 
-    unordered_map<int, int> map;
+    unordered_map<int, int> cache;
 
     for (int n = 0; n < nums.size(); n++) {
 
         int match = target - nums[n];
 
-        if (map.find(match) != map.end()) {
-            return { n, map.at(match) };
+        if (cache.find(match) != cache.end()) {
+            return { n, cache.at(match) };
         }
 
-        map.insert(make_pair(nums[n], n));
+        cache.insert(make_pair(nums[n], n));
     }
 
     return {};
@@ -28,18 +28,18 @@ vector<int> two_sum(vector<int>& nums, int target) {
 //--[ single pass, hash ]--//
 vector<int> two_sum_iter(vector<int>& nums, int target) {
 
-    unordered_map<int, int> map;
+    unordered_map<int, int> cache;
     unordered_map<int, int>::iterator iter;
 
     for (int n = 0; n < nums.size() ; n++) {
 
-        iter = map.find(target - nums[n]);
+        iter = cache.find(target - nums[n]);
 
-        if (iter != map.end() && iter->second != n) {
+        if (iter != cache.end() && iter->second != n) {
             return { n, iter->second };
         }
 
-        map.insert(make_pair(nums[n], n));
+        cache.insert(make_pair(nums[n], n));
     }
 
     return {};
@@ -48,25 +48,25 @@ vector<int> two_sum_iter(vector<int>& nums, int target) {
 //--[ two pass, hash ]--//
 vector<int> two_sum_b(vector<int>& nums, int target) {
 
-    unordered_map<int, int> map;
-    vector<int> pair;
+    unordered_map<int, int> cache;
+    vector<int> result;
 
     for (int n = 0; n < nums.size(); n++) {
-        map.insert(make_pair(nums[n], n));
+        cache.insert(make_pair(nums[n], n));
     }
 
     for (int p = 0; p < nums.size(); p++) {
 
         int match = target - nums[p];
 
-        if ((map.find(match) != map.end()) && (map.at(match) != p)) {
-            pair.push_back(p);
-            pair.push_back(map.at(match));
-            return pair;
+        if ((cache.find(match) != cache.end()) && (cache.at(match) != p)) {
+            result.push_back(p);
+            result.push_back(cache.at(match));
+            return result;
         }
     }
 
-    return pair;
+    return result;
 }
 
 //--[ function test driver ]--//
