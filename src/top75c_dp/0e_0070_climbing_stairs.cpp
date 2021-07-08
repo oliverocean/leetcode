@@ -4,6 +4,19 @@
 
 using namespace std;
 
+// standard dp
+int climb_stairs_(int n) {
+
+    vector<int>sum(n + 1, 1);
+
+    for (int i = 2; i <= n; i++) {
+        sum[i] = sum[i - 1] + sum[i - 2];
+    }
+
+    return sum[n];
+}
+
+// fibonacci sum
 int climb_stairs(int n) {
 
     int sum = 1;
@@ -15,18 +28,6 @@ int climb_stairs(int n) {
     }
 
     return sum;
-}
-
-// standard dp solution
-int climb_stairs_(int n) {
-
-    vector<int>sum(n + 1, 1);
-
-    for (int i = 2; i <= n; i++) {
-        sum[i] = sum[i - 1] + sum[i - 2];
-    }
-
-    return sum[n];
 }
 
 //--[ test driver ]--- */
