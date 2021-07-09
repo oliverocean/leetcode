@@ -7,41 +7,41 @@ using namespace std;
 
 // map solution
 bool is_valid(string s) {
-    if (s.empty()) { return true; }
 
-    stack<char> the_stack;
+    if (s.empty()) { return true; }
+    stack<char> stk;
     unordered_map<char, char> cache { {'(',')'}, {'{','}'}, {'[',']'} };
 
-    for (int i = 0; i < s.length(); i++) {
+    for (auto i : s) {
         if (s[i] == '(' || s[i] == '{' || s[i] == '[') {
-            the_stack.push(s[i]);
-        } else if (the_stack.empty() || cache[the_stack.top()] != s[i]) {
+            stk.push(s[i]);
+        } else if (stk.empty() || cache[stk.top()] != s[i]) {
             return false;
         } else {
-            the_stack.pop();
+            stk.pop();
         }
     }
-    return the_stack.empty();
+    return stk.empty();
 }
 
 // stack solution
 bool is_valid_(string s) {
+
     if (s.empty()) { return true; }
+    stack<char> stk;
 
-    stack<char> the_stack;
-
-    for (int i = 0; i < s.length(); i++) {
+    for (auto i : s) {
         if (s[i] == '(' || s[i] == '{' || s[i] == '[') {
-            the_stack.push(s[i]);
+            stk.push(s[i]);
         } else if (s[i] == ')' || s[i] == '}' || s[i] == ']') {
-            if (the_stack.empty()) {
+            if (stk.empty()) {
                 return false;
-            } else if (the_stack.top() == '(' && s[i] == ')') {
-                the_stack.pop();
-            } else if (the_stack.top() == '{' && s[i] == '}') {
-                the_stack.pop();
-            } else if (the_stack.top() == '[' && s[i] == ']') {
-                the_stack.pop();
+            } else if (stk.top() == '(' && s[i] == ')') {
+                stk.pop();
+            } else if (stk.top() == '{' && s[i] == '}') {
+                stk.pop();
+            } else if (stk.top() == '[' && s[i] == ']') {
+                stk.pop();
             } else {
                 return false;
             }
@@ -49,7 +49,7 @@ bool is_valid_(string s) {
             return true;
         }
     }
-    return the_stack.empty();
+    return stk.empty();
 }
 
 //--[ test driver ]--//
