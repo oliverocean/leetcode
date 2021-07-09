@@ -1,190 +1,81 @@
-/* *
- * @author: Oliver Ocean <github@oliverocean.co>
- * @project: LeetCode
- * @title: Valid Parentheses
- * @index: 020
- * @difficulty: easy
- * @topic: strings, stacks
- * @reqs: https://leetcode.com/problems/parentheses/
- * @brief:
- *     Given a string containing just the characters '(', ')', '{', '}',
- *     '[', and ']', determine if the input string is valid.
- *     An input string is valid if:
- *         > Open brackets must be closed by the same type of brackets
- *         > Open brackets must be closed in the correct order
- * @examples:
- *     Example 1: "()" => true
- *     Example 2: "()[]{}" => true
- *     Example 3: "(]" => false
- *     Example 4: "([)]" => false
- *     Example 5: "{()}" => true
- */
-
+// 0020
 #include <iostream>
 #include <stack>
 #include <unordered_map>
 
-/* ---[ function prototypes ]--- */
-bool isValid(std::string);
-bool isValidDebug(std::string);
-bool isValidAltOne(std::string);
+using namespace std;
 
-/* ---[ function test driver ]--- */
-int main()
-{
-    std::string setA = "()";
-    std::string setB = "()[]{}";
-    std::string setC = "(]";
-    std::string setD = "}";
-    std::string setE = "([)]";
-    std::string setF = "{[]}";
-    std::string setG = " ";
-    std::string setH = "asdf";
-    std::string setI;
-    std::string setJ = "[";
+// map solution
+bool is_valid(string s) {
+    if (s.empty()) { return true; }
 
-    std::cout << "\nSet A: " << setA << "\n" << isValid(setA) << "\n1? (true)\n-------\n";
-    std::cout << "\nSet B: " << setB << "\n" << isValid(setB) << "\n1? (true)\n-------\n";
-    std::cout << "\nSet C: " << setC << "\n" << isValid(setC) << "\n0? (false)\n-------\n";
-    std::cout << "\nSet D: " << setD << "\n" << isValid(setD) << "\n0? (false)\n-------\n";
-    std::cout << "\nSet E: " << setE << "\n" << isValid(setE) << "\n0? (false)\n-------\n";
-    std::cout << "\nSet F: " << setF << "\n" << isValid(setF) << "\n1? (true)\n-------\n";
-    std::cout << "\nSet G: " << setG << "\n" << isValid(setG) << "\n1? (true)\n-------\n";
-    std::cout << "\nSet H: " << setH << "\n" << isValid(setH) << "\n1? (true)\n-------\n";
-    std::cout << "\nSet I: " << setI << "\n" << isValid(setI) << "\n1? (true)\n-------\n";
-    std::cout << "\nSet J: " << setJ << "\n" << isValid(setJ) << "\n0? (false)\n-------\n";
+    stack<char> the_stack;
+    unordered_map<char, char> cache { {'(',')'}, {'{','}'}, {'[',']'} };
+
+    for (int i = 0; i < s.length(); i++) {
+        if (s[i] == '(' || s[i] == '{' || s[i] == '[') {
+            the_stack.push(s[i]);
+        } else if (the_stack.empty() || cache[the_stack.top()] != s[i]) {
+            return false;
+        } else {
+            the_stack.pop();
+        }
+    }
+    return the_stack.empty();
+}
+
+// stack solution
+bool is_valid_(string s) {
+    if (s.empty()) { return true; }
+
+    stack<char> the_stack;
+
+    for (int i = 0; i < s.length(); i++) {
+        if (s[i] == '(' || s[i] == '{' || s[i] == '[') {
+            the_stack.push(s[i]);
+        } else if (s[i] == ')' || s[i] == '}' || s[i] == ']') {
+            if (the_stack.empty()) {
+                return false;
+            } else if (the_stack.top() == '(' && s[i] == ')') {
+                the_stack.pop();
+            } else if (the_stack.top() == '{' && s[i] == '}') {
+                the_stack.pop();
+            } else if (the_stack.top() == '[' && s[i] == ']') {
+                the_stack.pop();
+            } else {
+                return false;
+            }
+        } else {
+            return true;
+        }
+    }
+    return the_stack.empty();
+}
+
+//--[ test driver ]--//
+int main() {
+    string setA = "()";
+    string setB = "()[]{}";
+    string setC = "(]";
+    string setD = "}";
+    string setE = "([)]";
+    string setF = "{[]}";
+    string setG = " ";
+    string setH = "asdf";
+    string setI;
+    string setJ = "[";
+
+    cout << "\nSet A: " << setA << "\n" << is_valid(setA) << "\n1? (true)\n-------\n";
+    cout << "\nSet B: " << setB << "\n" << is_valid(setB) << "\n1? (true)\n-------\n";
+    cout << "\nSet C: " << setC << "\n" << is_valid(setC) << "\n0? (false)\n-------\n";
+    cout << "\nSet D: " << setD << "\n" << is_valid(setD) << "\n0? (false)\n-------\n";
+    cout << "\nSet E: " << setE << "\n" << is_valid(setE) << "\n0? (false)\n-------\n";
+    cout << "\nSet F: " << setF << "\n" << is_valid(setF) << "\n1? (true)\n-------\n";
+    cout << "\nSet G: " << setG << "\n" << is_valid(setG) << "\n1? (true)\n-------\n";
+    cout << "\nSet H: " << setH << "\n" << is_valid(setH) << "\n1? (true)\n-------\n";
+    cout << "\nSet I: " << setI << "\n" << is_valid(setI) << "\n1? (true)\n-------\n";
+    cout << "\nSet J: " << setJ << "\n" << is_valid(setJ) << "\n0? (false)\n-------\n";
 
     return 0;
 }
-
-/* ---[ simple approach using stack ]--- */
-/* runtime: 0ms @ 100%, memory: 8.6mb @ 71% */
-bool isValid(std::string s)
-{
-    if (s.empty()) { return true; }
-
-    std::stack<char> aStack;
-
-    for (int i = 0; i < s.length(); ++i )
-    {
-        if (s[i] == '(' || s[i] == '{' || s[i] == '[')
-        {
-            aStack.push(s[i]);
-        }
-        else if (s[i] == ')' || s[i] == '}' || s[i] == ']')
-        {
-            if (aStack.empty())
-            {
-                return false;
-            }
-            else if (aStack.top() == '(' && s[i] == ')')
-            {
-                aStack.pop();
-            }
-            else if (aStack.top() == '{' && s[i] == '}')
-            {
-                aStack.pop();
-            }
-            else if (aStack.top() == '[' && s[i] == ']')
-            {
-                aStack.pop();
-            }
-            else
-            {
-                return false;
-            }
-        }
-        else
-        {
-            return true;
-        }
-    }
-    return aStack.empty();
-}
-
-/* ---[ simple approach using stack with debug output ]--- */
-bool isValidDebug(std::string s)
-{
-    if (s.empty())
-    {
-        std::cout << "> input string is empty but no errors.\n";
-        return true;
-    }
-
-    std::stack<char> aStack;
-
-    for (int i = 0; i < s.length(); ++i )
-    {
-        if (s[i] == '(' || s[i] == '{' || s[i] == '[')
-        {
-            std::cout << "push: " << s[i] << "\n";
-            aStack.push(s[i]);
-        }
-        else if (s[i] == ')' || s[i] == '}' || s[i] == ']')
-        {
-            if (aStack.empty())
-            {
-                std::cout << "? eval: " << s[i] << "\n";
-                std::cout << "rh value encountered, nothing in stack to match.\n";
-                return false;
-            }
-            else if (aStack.top() == '(' && s[i] == ')')
-            {
-                std::cout << "?: " << aStack.top()<< " + " << s[i] << "\n";
-                aStack.pop();
-            }
-            else if (aStack.top() == '{' && s[i] == '}')
-            {
-                std::cout << "?: " << aStack.top()<< " + " << s[i] << "\n";
-                aStack.pop();
-            }
-            else if (aStack.top() == '[' && s[i] == ']')
-            {
-                std::cout << "?: " << aStack.top()<< " + " << s[i] << "\n";
-                aStack.pop();
-            }
-            else
-            {
-                std::cout << "> mismatch found (stack not empty).\n";
-                return false;
-            }
-        }
-        else
-        {
-            std::cout << "> no errors but input string has no values to assess.\n";
-            return true;
-        }
-    }
-    std::cout << "> stack empty, no errors along the way.\n";
-    return aStack.empty();
-}
-
-/* ---[ map approach ]--- */
-/* more succinct but perhaps less easy to understand? Problematic
- * with a few of the test cases as well... needs more thought */
-bool isValidAltOne(std::string s)
-{
-    if (s.empty()) { return true; }
-
-    std::stack<char> aStack;
-    std::unordered_map<char, char> aMap { {'(',')'}, {'{','}'}, {'[',']'} };
-
-    for (int i = 0; i < s.length(); ++i)
-    {
-        if (s[i] == '(' || s[i] == '{' || s[i] == '[')
-        {
-            aStack.push(s[i]);
-        }
-        else if (aStack.empty() || aMap[aStack.top()] != s[i])
-        {
-            return false;
-        }
-        else
-        {
-            aStack.pop();
-        }
-    }
-    return aStack.empty();
-}
-
-// EOF
+// eof
